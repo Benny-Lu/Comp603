@@ -8,6 +8,10 @@ package comp603.part2;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -29,6 +33,20 @@ public class Comp603Part2 extends JFrame {
         outputLabel = new JLabel("Welcome to the Hotel Booking Application");
         outputLabel.setHorizontalAlignment(SwingConstants.CENTER); // Align label text in the center
 
+        bookButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                findAndBookRoom();
+            }
+        });
+
+        viewButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                seeMyBookings();
+            }
+        });
+        
         // Create panels for layout
         JPanel topPanel = new JPanel();
         JPanel centerPanel = new JPanel();
@@ -69,11 +87,15 @@ public class Comp603Part2 extends JFrame {
         // Implement the logic to find and book a room
         // Update the outputLabel or other GUI components accordingly
         outputLabel.setText("Find and Book a Room");
+        dispose();
+        FindARoom roomfinder = new FindARoom();
+        roomfinder.showFindAndBookRoomPanel();
     }
 
     private void seeMyBookings() {
         // Implement the logic to see my bookings
         // Update the outputLabel or other GUI components accordingly
+        dispose();
         outputLabel.setText("See My Bookings");
     }
 

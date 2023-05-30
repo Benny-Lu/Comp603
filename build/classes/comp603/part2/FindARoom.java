@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package comp603.part2;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -52,31 +53,51 @@ public class FindARoom extends JFrame {
         setVisible(true);
     }
 
-    public void showFindAndBookRoomPanel() {
-        // Clear the card panel
-        cardPanel.removeAll();
+public void showFindAndBookRoomPanel() {
+    // Clear the card panel
+    cardPanel.removeAll();
 
-        // Create panel for "Find and Book a Room" section
-        JPanel findAndBookRoomPanel = new JPanel();
-        findAndBookRoomPanel.setLayout(new BorderLayout());
+    // Create panel for "Find and Book a Room" section
+    JPanel findAndBookRoomPanel = new JPanel();
+    findAndBookRoomPanel.setLayout(new BorderLayout());
 
-        // Create a label for the title and align it at the top
-        JLabel titleLabel = new JLabel("Find a Room");
-        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        titleLabel.setVerticalAlignment(SwingConstants.TOP); // Align the text at the top
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        findAndBookRoomPanel.add(titleLabel, BorderLayout.CENTER);
+    // Create a panel for button and title
+    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    
+    // Create a back button
+    JButton backButton = new JButton("Back");
+    backButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            // Go back to the previous panel
+            cardLayout.show(cardPanel, "initial");
+            Comp603Part2 newframe = new Comp603Part2();
+            newframe.setVisible(true);
+            newframe.toFront();
+            dispose(); // Close the current JFrame
+        }
+    });
+    buttonPanel.add(backButton); // Add the button to the panel
 
-        // Add the panel to the card panel
-        cardPanel.add(findAndBookRoomPanel, "findAndBookRoom");
+    // Create a label for the title and align it at the top
+    JLabel titleLabel = new JLabel("Find a Room");
+    titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    titleLabel.setVerticalAlignment(SwingConstants.TOP); // Align the text at the top
+    titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
 
-        // Show the "Find and Book a Room" panel
-        cardLayout.show(cardPanel, "findAndBookRoom");
+    // Add the button panel and title label to the findAndBookRoomPanel
+    findAndBookRoomPanel.add(buttonPanel, BorderLayout.NORTH);
+    findAndBookRoomPanel.add(titleLabel, BorderLayout.CENTER);
 
-        // Refresh the GUI
-        revalidate();
-        repaint();
-    }
+    // Add the panel to the card panel
+    cardPanel.add(findAndBookRoomPanel, "findAndBookRoom");
+
+    // Show the "Find and Book a Room" panel
+    cardLayout.show(cardPanel, "findAndBookRoom");
+
+    // Refresh the GUI
+    revalidate();
+    repaint();
+}
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
